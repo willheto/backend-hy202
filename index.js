@@ -51,15 +51,26 @@ app.post('/api/persons', (request, response) => {
         console.log(newObject)
 
         if (newObject.name && newObject.number) {
+            console.log('ifiin meni')
+            for (let index = 0; index < numbers.length; index++) {
+                if (numbers[index].name === newObject.name) {
+                    console.log('unique')
+                    response.status(400).json({ error: 'name must be unique' })
+                    return
+                }
+            }
             console.log(newObject)
             const id = Math.floor(Math.random() * Math.floor(10000))
             newObject.id = id
 
             numbers = numbers.concat(newObject)
             console.log(`success, added ${newObject.name}`)
+        } else {
+            console.log('elseen meni')
+            response.status(400).json({ error: 'a name AND a number must be given' })
         }
 
-        response.status(400).json({ error: 'name must be unique' })
+
 
     }
 
