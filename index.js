@@ -32,6 +32,12 @@ app.get('/api/persons', (request, response) => {
     response.send(numbers)
 })
 
+app.get('/info', (request, response) => {
+    const date = new Date()
+    response.send(`<div><p>Phonebook has info for ${numbers.length} people</p>
+        <p>${date}</p></div>`)
+})
+
 app.get('/', (request, response) => {
     response.send('')
 })
