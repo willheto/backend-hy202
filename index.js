@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json()) 
+
 const port = 3001
 app.listen(port)
 console.log(`server running on port ${port}`)
@@ -37,9 +39,19 @@ app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     console.log(id)
     numbers = numbers.filter(number => number.id !== id)
-    
+
     response.status(204).end()
 
+})
+
+app.post('/api/persons', (request, response) => {
+    const newObject = request.body
+    console.log(newObject)
+    const id = Math.floor(Math.random() * Math.floor(10000))
+    newObject.id = id
+
+    numbers = numbers.concat(newObject)
+    console.log(`success, added ${newObject.name}`)
 })
 
 app.get('/api/persons/:id', (request, response) => {
