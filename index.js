@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-app.use(express.json()) 
+app.use(express.json())
 
 const port = 3001
 app.listen(port)
@@ -46,12 +46,23 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
     const newObject = request.body
-    console.log(newObject)
-    const id = Math.floor(Math.random() * Math.floor(10000))
-    newObject.id = id
 
-    numbers = numbers.concat(newObject)
-    console.log(`success, added ${newObject.name}`)
+    if (newObject) {
+        console.log(newObject)
+
+        if (newObject.name && newObject.number) {
+            console.log(newObject)
+            const id = Math.floor(Math.random() * Math.floor(10000))
+            newObject.id = id
+
+            numbers = numbers.concat(newObject)
+            console.log(`success, added ${newObject.name}`)
+        }
+
+        response.status(400).json({ error: 'name must be unique' })
+
+    }
+
 })
 
 app.get('/api/persons/:id', (request, response) => {
