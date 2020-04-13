@@ -1,6 +1,15 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
+let newObject = null
+
+app.use(morgan(':method :url :response-time :type'))
+morgan.token('type', function (req, res) {
+    if (JSON.stringify(req.body) !== '{}') {
+        return JSON.stringify(req.body)
+    } return ''
+})
 app.use(express.json())
 
 const port = 3001
@@ -45,28 +54,27 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 app.post('/api/persons', (request, response) => {
-    const newObject = request.body
+
+    newObject = request.body
 
     if (newObject) {
-        console.log(newObject)
+
 
         if (newObject.name && newObject.number) {
-            console.log('ifiin meni')
             for (let index = 0; index < numbers.length; index++) {
                 if (numbers[index].name === newObject.name) {
-                    console.log('unique')
                     response.status(400).json({ error: 'name must be unique' })
                     return
                 }
             }
-            console.log(newObject)
+
             const id = Math.floor(Math.random() * Math.floor(10000))
             newObject.id = id
 
             numbers = numbers.concat(newObject)
             console.log(`success, added ${newObject.name}`)
+            response.status(200).end()
         } else {
-            console.log('elseen meni')
             response.status(400).json({ error: 'a name AND a number must be given' })
         }
 
