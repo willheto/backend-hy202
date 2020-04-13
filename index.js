@@ -5,7 +5,7 @@ const port = 3001
 app.listen(port)
 console.log(`server running on port ${port}`)
 
-const numbers = [
+let numbers = [
     {
         name: "Arto Hellas",
         number: "040-123456",
@@ -30,6 +30,16 @@ const numbers = [
 
 app.get('/api/persons', (request, response) => {
     response.send(numbers)
+})
+
+app.delete('/api/persons/:id', (request, response) => {
+
+    const id = Number(request.params.id)
+    console.log(id)
+    numbers = numbers.filter(number => number.id !== id)
+    
+    response.status(204).end()
+
 })
 
 app.get('/api/persons/:id', (request, response) => {
