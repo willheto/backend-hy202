@@ -45,11 +45,11 @@ app.get('/api/persons', (request, response) => {
     response.send(numbers)
 })
 
-app.put('/api/persons', (request, response) => {
+app.put('/api/persons/:id', (request, response) => {
     console.log(request.body)
     const newPerson = request.body
-    const name = newPerson.name
-    numbers.map(number => number.name !== name ? number : newPerson)
+    const id = request.params.id
+    numbers.map(number => number.id !== id ? number : newPerson)
     response.status(200).json(newPerson)
     
 })
