@@ -74,7 +74,7 @@ app.post('/api/persons', (request, response) => {
 
             numbers = numbers.concat(newObject)
             console.log(`success, added ${newObject.name}`)
-            response.status(200).end()
+            response.status(200).json(newObject)
         } else {
             response.status(400).json({ error: 'a name AND a number must be given' })
         }
