@@ -45,6 +45,15 @@ app.get('/api/persons', (request, response) => {
     response.send(numbers)
 })
 
+app.put('/api/persons', (request, response) => {
+    console.log(request.body)
+    const newPerson = request.body
+    const name = newPerson.name
+    numbers.map(number => number.name !== name ? number : newPerson)
+    response.status(200).json(newPerson)
+    
+})
+
 app.delete('/api/persons/:id', (request, response) => {
 
     const id = Number(request.params.id)
