@@ -1,8 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 
-let newObject = null
+app.use(cors())
 
 app.use(morgan(':method :url :response-time :type'))
 morgan.token('type', function (req, res) {
@@ -55,7 +56,7 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
 
-    newObject = request.body
+    const newObject = request.body
 
     if (newObject) {
 
